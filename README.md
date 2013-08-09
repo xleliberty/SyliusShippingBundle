@@ -1,22 +1,22 @@
 SyliusShippingBundle [![Build status...](https://secure.travis-ci.org/Sylius/SyliusShippingBundle.png?branch=master)](http://travis-ci.org/Sylius/SyliusShippingBundle)
 ====================
 
-Shipping component for [**Symfony2**](http://symfony.com) ecommerce applications.
-It provides architecture for shipment management system.
+Shipping component for [**Symfony2**](http://symfony.com) e-commerce applications.
+It provides architecture for the shipment management system.
 
 It includes flexible calculators engine, which already contains default
-calculators. Weight based, item count based and others...
+calculators - weight, item count, dimensions based and others...
 
-You can also easily define your own pricing by implementing service with
+You can also easily define your own pricing by implementing a service with
 simple interface.
 
-Customizable rules system allows you to define any type of checks, so you can
-display right shipping methods to the customer.
+Customizable rules system allows you to define any type of requirements, so you can
+display the right shipping methods to the customer.
 
 Sylius
 ------
 
-**Sylius** - Modern ecommerce for Symfony2. Visit [Sylius.org](http://sylius.org).
+**Sylius** - Modern e-commerce for Symfony2. Visit [Sylius.org](http://sylius.org).
 
 [phpspec](http://phpspec.net) examples
 --------------------------------------

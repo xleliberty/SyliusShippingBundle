@@ -29,6 +29,11 @@ class ShipmentSpec extends ObjectBehavior
         $this->shouldImplement('Sylius\Bundle\ShippingBundle\Model\ShipmentInterface');
     }
 
+    function it_implements_Sylius_shipping_subject_interface()
+    {
+        $this->shouldImplement('Sylius\Bundle\ShippingBundle\Model\ShippingSubjectInterface');
+    }
+
     function it_has_no_id_by_default()
     {
         $this->getId()->shouldReturn(null);
@@ -80,7 +85,7 @@ class ShipmentSpec extends ObjectBehavior
     /**
      * @param Sylius\Bundle\ShippingBundle\Model\ShipmentItemInterface $shipmentItem
      */
-    function it_removes_item($shipmentItem)
+    function it_removes_items($shipmentItem)
     {
         $this->hasItem($shipmentItem)->shouldReturn(false);
 
@@ -116,6 +121,75 @@ class ShipmentSpec extends ObjectBehavior
         $this->shouldBeTracked();
         $this->setTracking(null);
         $this->shouldNotBeTracked();
+    }
+
+    /**
+     * @param Sylius\Bundle\ShippingBundle\Model\ShippableInterface    $shippable1
+     * @param Sylius\Bundle\ShippingBundle\Model\ShippableInterface    $shippable2
+     * @param Sylius\Bundle\ShippingBundle\Model\ShipmentItemInterface $item1
+     * @param Sylius\Bundle\ShippingBundle\Model\ShipmentItemInterface $item2
+     */
+    function it_calculates_the_shipping_weight_from_items($shippable1, $shippable2, $item1, $item2)
+    {
+        $item1->setShipment($this)->shouldBeCalled();
+        $item2->setShipment($this)->shouldBeCalled();
+        $item1->getShippable()->willReturn($shippable1);
+        $item2->getShippable()->willReturn($shippable2);
+
+        $shippable1->getShippingWeight()->willReturn(150);
+        $shippable2->getShippingWeight()->willReturn(475);
+
+        $this->addItem($item1);
+        $this->addItem($item2);
+
+        $this->getShippingWeight()->shouldReturn(625);
+    }
+
+    /**
+     * @param Sylius\Bundle\ShippingBundle\Model\ShipmentItemInterface $item1
+     * @param Sylius\Bundle\ShippingBundle\Model\ShipmentItemInterface $item2
+     * @param Sylius\Bundle\ShippingBundle\Model\ShipmentItemInterface $item3
+     */
+    function it_calculates_the_shipping_item_count_from_items($item1, $item2, $item3)
+    {
+        $item1->setShipment($this)->shouldBeCalled();
+        $item2->setShipment($this)->shouldBeCalled();
+        $item3->setShipment($this)->shouldBeCalled();
+
+        $this->addItem($item1);
+        $this->addItem($item2);
+        $this->addItem($item3);
+
+        $this->getShippingItemCount()->shouldReturn(3);
+    }
+
+    function it_returns_0_as_shipping_item_total_by_default()
+    {
+        $this->getShippingItemTotal()->shouldReturn(0);
+    }
+
+    /**
+     * @param Sylius\Bundle\ShippingBundle\Model\ShippableInterface    $shippable1
+     * @param Sylius\Bundle\ShippingBundle\Model\ShippableInterface    $shippable2
+     * @param Sylius\Bundle\ShippingBundle\Model\ShipmentItemInterface $item1
+     * @param Sylius\Bundle\ShippingBundle\Model\ShipmentItemInterface $item2
+     * @param Sylius\Bundle\ShippingBundle\Model\ShipmentItemInterface $item3
+     */
+    function it_returns_collection_of_shippables_from_items($shippable1, $shippable2, $item1, $item2, $item3)
+    {
+        $item1->setShipment($this)->shouldBeCalled();
+        $item2->setShipment($this)->shouldBeCalled();
+        $item3->setShipment($this)->shouldBeCalled();
+
+        $item1->getShippable()->willReturn($shippable1);
+        $item2->getShippable()->willReturn($shippable2);
+        $item3->getShippable()->willReturn($shippable1);
+
+        $this->addItem($item1);
+        $this->addItem($item2);
+        $this->addItem($item3);
+
+        $this->getShippables()->shouldReturn(array($shippable1, $shippable2));
     }
 
     function it_initializes_creation_date_by_default()

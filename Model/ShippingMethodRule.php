@@ -18,7 +18,7 @@ use Sylius\Bundle\ShippingBundle\Model\ShippingMethodInterface;
  *
  * @author Saša Stamenković <umpirsky@gmail.com>
  */
-class Rule implements RuleInterface
+class ShippingMethodRule implements ShippingMethodRuleInterface
 {
     protected $id;
     protected $type;

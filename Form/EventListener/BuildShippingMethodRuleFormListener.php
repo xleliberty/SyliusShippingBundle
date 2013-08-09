@@ -24,7 +24,7 @@ use Symfony\Component\Form\FormInterface;
  *
  * @author Saša Stamenković <umpirsky@gmail.com>
  */
-class BuildRuleFormListener implements EventSubscriberInterface
+class BuildShippingMethodRuleFormListener implements EventSubscriberInterface
 {
     private $checkerRegistry;
     private $factory;
@@ -48,7 +48,7 @@ class BuildRuleFormListener implements EventSubscriberInterface
         $rule = $event->getData();
         $form = $event->getForm();
 
-        if (null === $rule || null === $rule->getId()) {
+        if (null === $rule || null === $rule->getType()) {
             return;
         }
 

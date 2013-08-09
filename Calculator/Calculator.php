@@ -23,14 +23,6 @@ abstract class Calculator implements CalculatorInterface
     /**
      * {@inheritdoc}
      */
-    public function isConfigurable()
-    {
-        return false;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function getConfigurationFormType()
     {
         // Nothing to do here...

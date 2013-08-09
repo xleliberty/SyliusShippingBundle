@@ -48,48 +48,6 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * Adds `validation_groups` section.
-     *
-     * @param ArrayNodeDefinition $node
-     */
-    private function addValidationGroupsSection(ArrayNodeDefinition $node)
-    {
-        $node
-            ->children()
-                ->arrayNode('validation_groups')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->arrayNode('shipping_category')
-                            ->prototype('scalar')->end()
-                            ->defaultValue(array('sylius'))
-                        ->end()
-                        ->arrayNode('shipping_method')
-                            ->prototype('scalar')->end()
-                            ->defaultValue(array('sylius'))
-                        ->end()
-                        ->arrayNode('shipping_rule_item_count_configuration')
-                            ->prototype('scalar')->end()
-                            ->defaultValue(array('sylius'))
-                        ->end()
-                        ->arrayNode('shipping_calculator_flat_rate_configuration')
-                            ->prototype('scalar')->end()
-                            ->defaultValue(array('sylius'))
-                        ->end()
-                        ->arrayNode('shipping_calculator_flexible_rate_configuration')
-                            ->prototype('scalar')->end()
-                            ->defaultValue(array('sylius'))
-                        ->end()
-                        ->arrayNode('shipping_calculator_per_item_rate_configuration')
-                            ->prototype('scalar')->end()
-                            ->defaultValue(array('sylius'))
-                        ->end()
-                    ->end()
-                ->end()
-            ->end()
-        ;
-    }
-
-    /**
      * Adds `classes` section.
      *
      * @param ArrayNodeDefinition $node
@@ -140,10 +98,10 @@ class Configuration implements ConfigurationInterface
                         ->arrayNode('shipping_method_rule')
                             ->addDefaultsIfNotSet()
                             ->children()
-                                ->scalarNode('model')->defaultValue('Sylius\Bundle\ShippingBundle\Model\Rule')->end()
+                                ->scalarNode('model')->defaultValue('Sylius\Bundle\ShippingBundle\Model\ShippingMethodRule')->end()
                                 ->scalarNode('controller')->defaultValue('Sylius\Bundle\ResourceBundle\Controller\ResourceController')->end()
                                 ->scalarNode('repository')->end()
-                                ->scalarNode('form')->defaultValue('Sylius\Bundle\ShippingBundle\Form\Type\RuleType')->end()
+                                ->scalarNode('form')->defaultValue('Sylius\Bundle\ShippingBundle\Form\Type\ShippingMethodRuleType')->end()
                             ->end()
                         ->end()
                     ->end()
@@ -151,4 +109,47 @@ class Configuration implements ConfigurationInterface
             ->end()
         ;
     }
+
+    /**
+     * Adds `validation_groups` section.
+     *
+     * @param ArrayNodeDefinition $node
+     */
+    private function addValidationGroupsSection(ArrayNodeDefinition $node)
+    {
+        $node
+            ->children()
+                ->arrayNode('validation_groups')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->arrayNode('shipping_category')
+                            ->prototype('scalar')->end()
+                            ->defaultValue(array('sylius'))
+                        ->end()
+                        ->arrayNode('shipping_method')
+                            ->prototype('scalar')->end()
+                            ->defaultValue(array('sylius'))
+                        ->end()
+                        ->arrayNode('shipping_rule_item_count_configuration')
+                            ->prototype('scalar')->end()
+                            ->defaultValue(array('sylius'))
+                        ->end()
+                        ->arrayNode('shipping_calculator_flat_rate_configuration')
+                            ->prototype('scalar')->end()
+                            ->defaultValue(array('sylius'))
+                        ->end()
+                        ->arrayNode('shipping_calculator_flexible_rate_configuration')
+                            ->prototype('scalar')->end()
+                            ->defaultValue(array('sylius'))
+                        ->end()
+                        ->arrayNode('shipping_calculator_per_item_rate_configuration')
+                            ->prototype('scalar')->end()
+                            ->defaultValue(array('sylius'))
+                        ->end()
+                    ->end()
+                ->end()
+            ->end()
+        ;
+    }
+
 }

@@ -12,12 +12,12 @@
 namespace spec\Sylius\Bundle\ShippingBundle\Checker;
 
 use PhpSpec\ObjectBehavior;
-use Sylius\Bundle\ShippingBundle\Model\RuleInterface;
+use Sylius\Bundle\ShippingBundle\Model\ShippingMethodRuleInterface;
 
 /**
  * @author Saša Stamenković <umpirsky@gmail.com>
  */
-class ShippingMethodEligibilityChecker extends ObjectBehavior
+class ShippingMethodEligibilityCheckerSpec extends ObjectBehavior
 {
     /**
      * @param Sylius\Bundle\ShippingBundle\Checker\Registry\RuleCheckerRegistryInterface $registry
@@ -39,19 +39,19 @@ class ShippingMethodEligibilityChecker extends ObjectBehavior
     }
 
     /**
-     * @param Sylius\Bundle\ShippingBundle\Model\ShippingSubjecteInterface $subject
+     * @param Sylius\Bundle\ShippingBundle\Model\ShippingSubjectInterface $subject
      * @param Sylius\Bundle\ShippingBundle\Model\ShippingMethodInterface   $shippingMethod
-     * @param Sylius\Bundle\ShippingBundle\Model\RuleInterface             $rule
+     * @param Sylius\Bundle\ShippingBundle\Model\ShippingMethodRuleInterface             $rule
      */
     function it_returns_true_if_all_checkers_approve_shipping_method($registry, $checker, $subject, $shippingMethod, $rule)
     {
         $configuration = array();
 
-        $rule->getType()->shouldBeCalled()->willReturn(RuleInterface::TYPE_ITEM_TOTAL);
+        $rule->getType()->shouldBeCalled()->willReturn(ShippingMethodRuleInterface::TYPE_ITEM_TOTAL);
         $rule->getConfiguration()->shouldBeCalled()->willReturn($configuration);
 
         $shippingMethod->getRules()->shouldBeCalled()->willReturn(array($rule));
-        $registry->getChecker(RuleInterface::TYPE_ITEM_TOTAL)->shouldBeCalled()->willReturn($checker);
+        $registry->getChecker(ShippingMethodRuleInterface::TYPE_ITEM_TOTAL)->shouldBeCalled()->willReturn($checker);
 
         $checker->isEligible($subject, $configuration)->shouldBeCalled()->willReturn(true);
 
@@ -61,17 +61,17 @@ class ShippingMethodEligibilityChecker extends ObjectBehavior
     /**
      * @param Sylius\Bundle\ShippingBundle\Model\ShippingSubjectInterface $subject
      * @param Sylius\Bundle\ShippingBundle\Model\ShippingMethodInterface  $shippingMethod
-     * @param Sylius\Bundle\ShippingBundle\Model\RuleInterface            $rule
+     * @param Sylius\Bundle\ShippingBundle\Model\ShippingMethodRuleInterface            $rule
      */
     function it_returns_false_if_any_checker_disapproves_shipping_method($registry, $checker, $subject, $shippingMethod, $rule)
     {
         $configuration = array();
 
-        $rule->getType()->shouldBeCalled()->willReturn(RuleInterface::TYPE_ITEM_TOTAL);
+        $rule->getType()->shouldBeCalled()->willReturn(ShippingMethodRuleInterface::TYPE_ITEM_TOTAL);
         $rule->getConfiguration()->shouldBeCalled()->willReturn($configuration);
 
         $shippingMethod->getRules()->shouldBeCalled()->willReturn(array($rule));
-        $registry->getChecker(RuleInterface::TYPE_ITEM_TOTAL)->shouldBeCalled()->willReturn($checker);
+        $registry->getChecker(ShippingMethodRuleInterface::TYPE_ITEM_TOTAL)->shouldBeCalled()->willReturn($checker);
 
         $checker->isEligible($subject, $configuration)->shouldBeCalled()->willReturn(false);
 

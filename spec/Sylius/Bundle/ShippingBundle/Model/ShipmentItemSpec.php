@@ -34,7 +34,7 @@ class ShipmentItemSpec extends ObjectBehavior
         $this->getId()->shouldReturn(null);
     }
 
-    function it_does_not_belong_to_shipment_by_default()
+    function it_does_not_belong_to_a_shipment_by_default()
     {
         $this->getShipment()->shouldReturn(null);
     }
@@ -42,7 +42,7 @@ class ShipmentItemSpec extends ObjectBehavior
     /**
      * @param Sylius\Bundle\ShippingBundle\Model\ShipmentInterface $shipment
      */
-    function it_allows_assigning_itself_to_shipment($shipment)
+    function it_allows_assigning_itself_to_a_shipment($shipment)
     {
         $this->setShipment($shipment);
         $this->getShipment()->shouldReturn($shipment);
@@ -51,7 +51,7 @@ class ShipmentItemSpec extends ObjectBehavior
     /**
      * @param Sylius\Bundle\ShippingBundle\Model\ShipmentInterface $shipment
      */
-    function it_allows_detaching_itself_from_shipment($shipment)
+    function it_allows_detaching_itself_from_a_shipment($shipment)
     {
         $this->setShipment($shipment);
         $this->getShipment()->shouldReturn($shipment);
@@ -68,7 +68,7 @@ class ShipmentItemSpec extends ObjectBehavior
     /**
      * @param Sylius\Bundle\ShippingBundle\Model\ShippableInterface $shippable
      */
-    function it_allows_defining_shippable($shippable)
+    function it_allows_defining_the_shippable($shippable)
     {
         $this->setShippable($shippable);
         $this->getShippable()->shouldReturn($shippable);

@@ -30,6 +30,7 @@ final class DefaultCalculators
 
     /**
      * Flexible rate calculator.
+     *
      * Fixed price for first item and constant rate
      * for each additional item with a limit.
      */
@@ -43,5 +44,5 @@ final class DefaultCalculators
     /**
      * Flexible prices for weight ranges.
      */
-    const WEIGHT_BUCKETS_RATE = 'weight_buckets_rate';
+    const WEIGHT_RANGE_RATE = 'weight_range_rate';
 }

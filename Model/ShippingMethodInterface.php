@@ -124,30 +124,30 @@ interface ShippingMethodInterface extends TimestampableInterface
     /**
      * Get all rules assigned to this shipping method.
      *
-     * @return RuleInterface[]
+     * @return ShippingMethodRuleInterface[]
      */
     public function getRules();
 
     /**
      * Check if this shipping method already contains the rule?
      *
-     * @param RuleInterface $rule
+     * @param ShippingMethodRuleInterface $rule
      *
      * @return Boolean
      */
-    public function hasRule(RuleInterface $rule);
+    public function hasRule(ShippingMethodRuleInterface $rule);
 
     /**
      * Adds rule.
      *
-     * @param RuleInterface $rule
+     * @param ShippingMethodRuleInterface $rule
      */
-    public function addRule(RuleInterface $rule);
+    public function addRule(ShippingMethodRuleInterface $rule);
 
     /**
      * Remove rule.
      *
-     * @param RuleInterface $rule
+     * @param ShippingMethodRuleInterface $rule
      */
-    public function removeRule(RuleInterface $rule);
+    public function removeRule(ShippingMethodRuleInterface $rule);
 }

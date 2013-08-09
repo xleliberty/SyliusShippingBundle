@@ -12,21 +12,21 @@
 namespace spec\Sylius\Bundle\ShippingBundle\Model;
 
 use PhpSpec\ObjectBehavior;
-use Sylius\Bundle\ShippingBundle\Model\RuleInterface;
+use Sylius\Bundle\ShippingBundle\Model\ShippingMethodRuleInterface;
 
 /**
  * @author Saša Stamenković <umpirsky@gmail.com>
  */
-class RuleSpec extends ObjectBehavior
+class ShippingMethodRuleSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('Sylius\Bundle\ShippingBundle\Model\Rule');
+        $this->shouldHaveType('Sylius\Bundle\ShippingBundle\Model\ShippingMethodRule');
     }
 
     function it_implements_Sylius_shipping_method_rule_interface()
     {
-        $this->shouldImplement('Sylius\Bundle\ShippingBundle\Model\RuleInterface');
+        $this->shouldImplement('Sylius\Bundle\ShippingBundle\Model\ShippingMethodRuleInterface');
     }
 
     function it_has_no_id_by_default()
@@ -41,8 +41,8 @@ class RuleSpec extends ObjectBehavior
 
     function its_type_is_mutable()
     {
-        $this->setType(RuleInterface::TYPE_ITEM_COUNT);
-        $this->getType()->shouldReturn(RuleInterface::TYPE_ITEM_COUNT);
+        $this->setType(ShippingMethodRuleInterface::TYPE_ITEM_COUNT);
+        $this->getType()->shouldReturn(ShippingMethodRuleInterface::TYPE_ITEM_COUNT);
     }
 
     function it_initializes_empty_array_for_configuration_by_default()

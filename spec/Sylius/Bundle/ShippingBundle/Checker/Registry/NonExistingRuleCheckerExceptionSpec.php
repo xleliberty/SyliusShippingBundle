@@ -12,7 +12,7 @@
 namespace spec\Sylius\Bundle\ShippingBundle\Checker\Registry;
 
 use PhpSpec\ObjectBehavior;
-use Sylius\Bundle\ShippingBundle\Model\RuleInterface;
+use Sylius\Bundle\ShippingBundle\Model\ShippingMethodRuleInterface;
 
 /**
  * @author Saša Stamenković <umpirsky@gmail.com>
@@ -21,7 +21,7 @@ class NonExistingRuleCheckerExceptionSpec extends ObjectBehavior
 {
     function let()
     {
-        $this->beConstructedWith(RuleInterface::TYPE_ITEM_TOTAL);
+        $this->beConstructedWith(ShippingMethodRuleInterface::TYPE_ITEM_TOTAL);
     }
 
     function it_is_initializable()

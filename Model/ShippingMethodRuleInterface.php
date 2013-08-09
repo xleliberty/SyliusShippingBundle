@@ -18,7 +18,7 @@ use Sylius\Bundle\ShippingBundle\Model\ShippingMethodInterface;
  *
  * @author Saša Stamenković <umpirsky@gmail.com>
  */
-interface RuleInterface
+interface ShippingMethodRuleInterface
 {
     const TYPE_ITEM_TOTAL = 'item_total';
     const TYPE_ITEM_COUNT = 'item_count';

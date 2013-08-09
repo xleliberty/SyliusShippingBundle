@@ -11,18 +11,18 @@
 
 namespace Sylius\Bundle\ShippingBundle\Form\Type;
 
+use Sylius\Bundle\ShippingBundle\Checker\Registry\RuleCheckerRegistryInterface;
+use Sylius\Bundle\ShippingBundle\Form\EventListener\BuildShippingMethodRuleFormListener;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Sylius\Bundle\ShippingBundle\Checker\Registry\RuleCheckerRegistryInterface;
-use Sylius\Bundle\ShippingBundle\Form\EventListener\BuildRuleFormListener;
 
 /**
  * Shipping rule form type.
  *
  * @author Saša Stamenković <umpirsky@gmail.com>
  */
-class RuleType extends AbstractType
+class ShippingMethodRuleType extends AbstractType
 {
     protected $dataClass;
     protected $validationGroups;
@@ -38,8 +38,8 @@ class RuleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->addEventSubscriber(new BuildRuleFormListener($this->checkerRegistry, $builder->getFormFactory()))
-            ->add('type', 'sylius_shipping_rule_choice', array(
+            ->addEventSubscriber(new BuildShippingMethodRuleFormListener($this->checkerRegistry, $builder->getFormFactory()))
+            ->add('type', 'sylius_shipping_method_rule_choice', array(
                 'label' => 'sylius.form.rule.type'
             ))
         ;
@@ -57,6 +57,6 @@ class RuleType extends AbstractType
 
     public function getName()
     {
-        return 'sylius_shipping_rule';
+        return 'sylius_shipping_method_rule';
     }
 }

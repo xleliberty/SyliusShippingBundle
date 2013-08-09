@@ -46,7 +46,16 @@ class ShippingMethodSpec extends ObjectBehavior
         $this->shouldNotBeEnabled();
     }
 
-    function it_does_not_belong_to_category_by_default()
+    function it_allows_enabling_itself()
+    {
+        $this->setEnabled(false);
+        $this->shouldNotBeEnabled();
+
+        $this->setEnabled(true);
+        $this->shouldBeEnabled();
+    }
+
+    function it_does_not_belong_to_a_category_by_default()
     {
         $this->getCategory()->shouldReturn(null);
     }
@@ -72,7 +81,7 @@ class ShippingMethodSpec extends ObjectBehavior
         $this->getCategory()->shouldReturn(null);
     }
 
-    function it_has_match_any_category_requirement_by_default()
+    function it_matches_any_category_by_default()
     {
         $this->getCategoryRequirement()->shouldReturn(ShippingMethodInterface::CATEGORY_REQUIREMENT_MATCH_ANY);
     }
@@ -120,6 +129,38 @@ class ShippingMethodSpec extends ObjectBehavior
     {
         $this->setConfiguration(array('charge' => 5));
         $this->getConfiguration()->shouldReturn(array('charge' => 5));
+    }
+
+    function it_initializes_rules_collection_by_default()
+    {
+        $this->getRules()->shouldHaveType('Doctrine\Common\Collections\Collection');
+    }
+
+    /**
+     * @param Sylius\Bundle\ShippingBundle\Model\ShippingMethodRuleInterface $rule
+     */
+    function it_adds_rules($rule)
+    {
+        $rule->setMethod($this)->shouldBeCalled();
+        $this->addRule($rule);
+
+        $this->hasRule($rule)->shouldReturn(true);
+    }
+
+   /**
+     * @param Sylius\Bundle\ShippingBundle\Model\ShippingMethodRuleInterface $rule
+     */
+    function it_removes_rules($rule)
+    {
+        $rule->setMethod($this)->shouldBeCalled();
+        $this->addRule($rule);
+
+        $this->hasRule($rule)->shouldReturn(true);
+
+        $rule->setMethod(null)->shouldBeCalled();
+        $this->removeRule($rule);
+
+        $this->hasRule($rule)->shouldReturn(false);
     }
 
     function it_initializes_creation_date_by_default()

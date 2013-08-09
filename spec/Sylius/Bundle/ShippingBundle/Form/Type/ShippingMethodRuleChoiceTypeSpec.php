@@ -12,16 +12,16 @@
 namespace spec\Sylius\Bundle\ShippingBundle\Form\Type;
 
 use PhpSpec\ObjectBehavior;
-use Sylius\Bundle\ShippingBundle\Model\RuleInterface;
+use Sylius\Bundle\ShippingBundle\Model\ShippingMethodRuleInterface;
 
 /**
  * @author Saša Stamenković <umpirsky@gmail.com>
  */
-class RuleChoiceTypeSpec extends ObjectBehavior
+class ShippingMethodRuleChoiceTypeSpec extends ObjectBehavior
 {
     private $choices = array(
-        RuleInterface::TYPE_ITEM_TOTAL => 'Order total',
-        RuleInterface::TYPE_ITEM_COUNT  => 'Order items count'
+        ShippingMethodRuleInterface::TYPE_ITEM_TOTAL => 'Order total',
+        ShippingMethodRuleInterface::TYPE_ITEM_COUNT  => 'Order items count'
     );
 
     function let()
@@ -31,7 +31,7 @@ class RuleChoiceTypeSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('Sylius\Bundle\ShippingBundle\Form\Type\RuleChoiceType');
+        $this->shouldHaveType('Sylius\Bundle\ShippingBundle\Form\Type\ShippingMethodRuleChoiceType');
     }
 
     function it_is_a_form_type()

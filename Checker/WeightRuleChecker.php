@@ -14,24 +14,27 @@ namespace Sylius\Bundle\ShippingBundle\Checker;
 use Sylius\Bundle\ShippingBundle\Model\ShippingSubjectInterface;
 
 /**
- * Checks if item count exceeds (or at least is equal to) the configured count.
+ * Checks if shipping subject weight fits into the min/max range.
  *
- * @author Saša Stamenković <umpirsky@gmail.com>
+ * @author Paweł Jędrzejewski <pjedrzejewski@diweb.pl>
  */
-class ItemCountRuleChecker implements RuleCheckerInterface
+class WeightRuleChecker implements RuleCheckerInterface
 {
     /**
      * {@inheritdoc}
      */
     public function isEligible(ShippingSubjectInterface $subject, array $configuration)
     {
-        $count = $subject->getShippingItemCount();
+        $weight = $subject->getShippingWeight();
 
-        if ($configuration['equal']) {
-            return $count >= $configuration['count'];
+        if (isset($configuration['min']) && $configuration['min'] > $weight) {
+            return false;
+        }
+        if (isset($configuration['max']) && $configuration['max'] < $weight) {
+            return false;
         }
 
-        return $count > $configuration['count'];
+        return true;
     }
 
     /**
@@ -39,6 +42,6 @@ class ItemCountRuleChecker implements RuleCheckerInterface
      */
     public function getConfigurationFormType()
     {
-        return 'sylius_shipping_rule_item_count_configuration';
+        return 'sylius_shipping_rule_weight_configuration';
     }
 }

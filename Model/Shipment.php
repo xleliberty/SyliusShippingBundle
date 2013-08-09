@@ -171,12 +171,12 @@ class Shipment implements ShipmentInterface, TimestampableInterface
      */
     public function getShippables()
     {
-        $shippables = new ArrayCollection();
+        $shippables = array();
 
         foreach ($this->items as $item) {
             $shippable = $item->getShippable();
-            if (!$shippables->contains($shippable)) {
-                $shippables->add($shippable);
+            if (!in_array($shippable, $shippables)) {
+                $shippables[] = $shippable;
             }
         }
 
@@ -244,8 +244,10 @@ class Shipment implements ShipmentInterface, TimestampableInterface
         $weight = 0;
 
         foreach ($this->items as $item) {
-            $weight += $item->getShippable()->getShippingWeigth();
+            $weight += $item->getShippable()->getShippingWeight();
         }
+
+        return $weight;
     }
 
     public function getShippingItemCount()

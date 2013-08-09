@@ -17,7 +17,7 @@ use Prophecy\Argument;
 /**
  * @author Saša Stamenković <umpirsky@gmail.com>
  */
-class RuleTypeSpec extends ObjectBehavior
+class ShippingMethodRuleTypeSpec extends ObjectBehavior
 {
     /**
      * @param Sylius\Bundle\ShippingBundle\Checker\Registry\RuleCheckerRegistryInterface $checkerRegistry
@@ -29,7 +29,7 @@ class RuleTypeSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('Sylius\Bundle\ShippingBundle\Form\Type\RuleType');
+        $this->shouldHaveType('Sylius\Bundle\ShippingBundle\Form\Type\ShippingMethodRuleType');
     }
 
     function it_is_a_form_type()
@@ -47,7 +47,7 @@ class RuleTypeSpec extends ObjectBehavior
         $builder->getFormFactory()->willReturn($factory);
 
         $builder
-            ->add('type', 'sylius_shipping_rule_choice', Argument::any())
+            ->add('type', 'sylius_shipping_method_rule_choice', Argument::any())
             ->shouldBeCalled()
             ->willReturn($builder)
         ;
@@ -65,7 +65,7 @@ class RuleTypeSpec extends ObjectBehavior
         $builder->getFormFactory()->willReturn($factory);
 
         $builder
-            ->addEventSubscriber(Argument::type('Sylius\Bundle\ShippingBundle\Form\EventListener\BuildRuleFormListener'))
+            ->addEventSubscriber(Argument::type('Sylius\Bundle\ShippingBundle\Form\EventListener\BuildShippingMethodRuleFormListener'))
             ->shouldBeCalled()
             ->willReturn($builder)
         ;

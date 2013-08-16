@@ -23,14 +23,9 @@ class PerItemRateCalculatorSpec extends ObjectBehavior
         $this->shouldHaveType('Sylius\Bundle\ShippingBundle\Calculator\PerItemRateCalculator');
     }
 
-    function it_should_implement_Sylius_shipping_calculator_interface()
+    function it_implements_Sylius_shipping_calculator_interface()
     {
         $this->shouldImplement('Sylius\Bundle\ShippingBundle\Calculator\CalculatorInterface');
-    }
-
-    function it_is_configurable()
-    {
-        $this->shouldBeConfigurable();
     }
 
     /**
@@ -46,22 +41,16 @@ class PerItemRateCalculatorSpec extends ObjectBehavior
 
     function it_returns_per_item_rate_configuration_form_type()
     {
-        $this->getConfigurationFormType()->shouldReturn('sylius_shipping_calculator_per_item_rate_configuration');
+        $this->getConfigurationFormType()->shouldReturn('sylius_shipping_calculator_per_item_rate');
     }
 
     /**
-     * @param Sylius\Bundle\ShippingBundle\Model\ShipmentInterface       $shipment
-     * @param Doctrine\Common\Collections\Collection                     $shippingItems
-     * @param Sylius\Bundle\ShippingBundle\Model\ShippingMethodInterface $method
+     * @param Sylius\Bundle\ShippingBundle\Model\ShippingSubjectInterface $subject
      */
-    function it_should_calculate_the_total_with_the_per_item_amount_configured_on_the_method($shipment, $shippingItems, $method)
+    function it_calculates_the_total_with_the_per_item_amount_configured($subject)
     {
-        $shipment->getMethod()->willReturn($method);
-        $method->getConfiguration()->willReturn(array('amount' => 200));
+        $subject->getShippingItemCount()->willReturn(11);
 
-        $shippingItems->count()->willReturn(11);
-        $shipment->getItems()->willReturn($shippingItems);
-
-        $this->calculate($shipment)->shouldReturn(2200);
+        $this->calculate($subject)->shouldReturn(2200);
     }
 }

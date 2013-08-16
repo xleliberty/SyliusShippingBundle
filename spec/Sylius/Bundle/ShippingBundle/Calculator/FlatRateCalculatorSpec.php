@@ -46,14 +46,14 @@ class FlatRateCalculatorSpec extends ObjectBehavior
 
     function it_returns_flat_rate_configuration_form_type()
     {
-        $this->getConfigurationFormType()->shouldReturn('sylius_shipping_calculator_flat_rate_configuration');
+        $this->getConfigurationFormType()->shouldReturn('sylius_shipping_calculator_flat_rate');
     }
 
     /**
-     * @param Sylius\Bundle\ShippingBundle\Model\ShipmentInterface $shipment
+     * @param Sylius\Bundle\ShippingBundle\Model\ShippingSubjectInterface $subject
      */
-    function it_should_calculate_the_flat_rate_amount_configured_on_the_method($shipment)
+    function it_should_calculate_the_flat_rate_amount_configured($subject)
     {
-        $this->calculate($shipment, array('amount' => 1500))->shouldReturn(1500);
+        $this->calculate($subject, array('amount' => 1500))->shouldReturn(1500);
     }
 }

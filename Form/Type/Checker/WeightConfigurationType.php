@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Sylius\Bundle\ShippingBundle\Form\Type\Rule;
+namespace Sylius\Bundle\ShippingBundle\Form\Type\Checker;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -22,25 +22,8 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  *
  * @author Paweł Jędrzejewski <pjedrzejewski@diweb.pl>
  */
-class ItemTotalConfigurationType extends AbstractType
+class WeightConfigurationType extends AbstractType
 {
-    /**
-     * Validation groups.
-     *
-     * @var array
-     */
-    protected $validationGroups;
-
-    /**
-     * Constructor.
-     *
-     * @param array  $validationGroups
-     */
-    public function __construct(array $validationGroups)
-    {
-        $this->validationGroups = $validationGroups;
-    }
-
     /**
      * {@inheritdoc}
      */
@@ -48,28 +31,18 @@ class ItemTotalConfigurationType extends AbstractType
     {
         $builder
             ->add('min', 'integer', array(
-                'label' => 'sylius.form.rule.item_total_configuration.min',
+                'required' => false,
+                'label'    => 'sylius.form.shipping_rule.weight.min',
                 'constraints' => array(
                     new Type(array('type' => 'numeric')),
                 )
             ))
             ->add('max', 'integer', array(
-                'label' => 'sylius.form.rule.item_total_configuration.max',
+                'required' => false,
+                'label'    => 'sylius.form.shipping_rule.weight.max',
                 'constraints' => array(
                     new Type(array('type' => 'numeric')),
                 )
-            ))
-        ;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $resolver
-            ->setDefaults(array(
-                'validation_groups' => $this->validationGroups,
             ))
         ;
     }
@@ -79,6 +52,6 @@ class ItemTotalConfigurationType extends AbstractType
      */
     public function getName()
     {
-        return 'sylius_shipping_rule_item_total_configuration';
+        return 'sylius_shipping_rule_weight';
     }
 }

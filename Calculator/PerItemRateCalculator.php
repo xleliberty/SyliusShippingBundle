@@ -32,17 +32,9 @@ class PerItemRateCalculator extends Calculator
     /**
      * {@inheritdoc}
      */
-    public function isConfigurable()
-    {
-        return true;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function getConfigurationFormType()
     {
-        return 'sylius_shipping_calculator_per_item_rate_configuration';
+        return 'sylius_shipping_calculator_per_item_rate';
     }
 
     /**

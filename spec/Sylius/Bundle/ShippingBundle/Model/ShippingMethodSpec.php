@@ -137,7 +137,7 @@ class ShippingMethodSpec extends ObjectBehavior
     }
 
     /**
-     * @param Sylius\Bundle\ShippingBundle\Model\ShippingMethodRuleInterface $rule
+     * @param Sylius\Bundle\ShippingBundle\Model\ShippingRuleInterface $rule
      */
     function it_adds_rules($rule)
     {
@@ -148,7 +148,7 @@ class ShippingMethodSpec extends ObjectBehavior
     }
 
    /**
-     * @param Sylius\Bundle\ShippingBundle\Model\ShippingMethodRuleInterface $rule
+     * @param Sylius\Bundle\ShippingBundle\Model\ShippingRuleInterface $rule
      */
     function it_removes_rules($rule)
     {

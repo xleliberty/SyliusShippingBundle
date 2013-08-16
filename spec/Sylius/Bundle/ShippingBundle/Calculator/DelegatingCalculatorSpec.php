@@ -19,7 +19,7 @@ use PhpSpec\ObjectBehavior;
 class DelegatingCalculatorSpec extends ObjectBehavior
 {
     /**
-     * @param Sylius\Bundle\ShippingBundle\Calculator\Registry\CalculatorRegistryInterface $registry
+     * @param Sylius\Component\DependencyInjection\ServiceRegistryInterface $registry
      */
     function let($registry)
     {
@@ -37,33 +37,33 @@ class DelegatingCalculatorSpec extends ObjectBehavior
     }
 
     /**
-     * @param Sylius\Bundle\ShippingBundle\Model\ShipmentInterface $shipment
+     * @param Sylius\Bundle\ShippingBundle\Model\ShippingSubjectInterface $subject
      */
-    function it_should_complain_if_shipment_has_no_method_defined($shipment)
+    function it_should_complain_if_subject_has_no_method_defined($subject)
     {
-        $shipment->getMethod()->willReturn(null);
+        $subject->getMethod()->willReturn(null);
 
         $this
             ->shouldThrow('Sylius\Bundle\ShippingBundle\Calculator\UndefinedShippingMethodException')
-            ->duringCalculate($shipment)
+            ->duringCalculate($subject)
         ;
     }
 
     /**
-     * @param Sylius\Bundle\ShippingBundle\Model\ShipmentInterface        $shipment
+     * @param Sylius\Bundle\ShippingBundle\Model\ShippingSubjectInterface        $subject
      * @param Sylius\Bundle\ShippingBundle\Model\ShippingMethodInterface  $method
      * @param Sylius\Bundle\ShippingBundle\Calculator\CalculatorInterface $calculator
      */
-    function it_should_delegate_calculation_to_a_calculator_defined_on_shipping_method($registry, $shipment, $method, $calculator)
+    function it_should_delegate_calculation_to_a_calculator_defined_on_shipping_method($registry, $subject, $method, $calculator)
     {
-        $shipment->getMethod()->willReturn($method);
+        $subject->getShippingMethod()->willReturn($method);
 
         $method->getCalculator()->willReturn('default');
         $method->getConfiguration()->willReturn(array());
 
-        $registry->getCalculator('default')->willReturn($calculator);
-        $calculator->calculate($shipment, array())->shouldBeCalled()->willReturn(1000);
+        $registry->get('default')->willReturn($calculator);
+        $calculator->calculate($subject, array())->shouldBeCalled()->willReturn(1000);
 
-        $this->calculate($shipment, array())->shouldReturn(1000);
+        $this->calculate($subject, array())->shouldReturn(1000);
     }
 }

@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace spec\Sylius\Bundle\ShippingBundle\Form\Type\Rule;
+namespace spec\Sylius\Bundle\ShippingBundle\Form\Type\Checker;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -19,14 +19,9 @@ use Prophecy\Argument;
  */
 class ItemCountConfigurationTypeSpec extends ObjectBehavior
 {
-    function let()
-    {
-        $this->beConstructedWith(array('sylius'));
-    }
-
     function it_is_initializable()
     {
-        $this->shouldHaveType('Sylius\Bundle\ShippingBundle\Form\Type\Rule\ItemCountConfigurationType');
+        $this->shouldHaveType('Sylius\Bundle\ShippingBundle\Form\Type\Checker\ItemCountConfigurationType');
     }
 
     function it_is_a_form_type()
@@ -37,20 +32,25 @@ class ItemCountConfigurationTypeSpec extends ObjectBehavior
     /**
      * @param Symfony\Component\Form\FormBuilder $builder
      */
-    function it_should_build_form_with_count_field_and_equal_checkbox($builder)
+    function it_should_build_form_with_min_and_max_fields($builder)
     {
         $builder
-            ->add('count', 'integer', Argument::any())
+            ->add('min', 'integer', Argument::any())
             ->shouldBeCalled()
             ->willReturn($builder)
         ;
 
         $builder
-          ->add('equal', 'checkbox', Argument::any())
+          ->add('max', 'integer', Argument::any())
             ->shouldBeCalled()
             ->willReturn($builder)
         ;
 
         $this->buildForm($builder, array());
+    }
+
+    function it_has_valid_name()
+    {
+        $this->getName()->shouldReturn('sylius_shipping_rule_item_count');
     }
 }

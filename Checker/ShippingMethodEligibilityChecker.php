@@ -11,12 +11,12 @@
 
 namespace Sylius\Bundle\ShippingBundle\Checker;
 
-use Sylius\Bundle\ShippingBundle\Checker\Registry\RuleCheckerRegistryInterface;
 use Sylius\Bundle\ShippingBundle\Model\ShippingMethodInterface;
 use Sylius\Bundle\ShippingBundle\Model\ShippingSubjectInterface;
+use Sylius\Component\DependencyInjection\ServiceRegistryInterface;
 
 /**
- * Checks if shipping method rules are capable of shipping given subject.
+ * Checks if shipping method rules are satisfied.
  *
  * @author Saša Stamenković <umpirsky@gmail.com>
  */
@@ -25,16 +25,16 @@ class ShippingMethodEligibilityChecker implements ShippingMethodEligibilityCheck
     /**
      * Shipping rules registry.
      *
-     * @var RuleCheckerRegistryInterface
+     * @var ServiceRegistryInterface
      */
     protected $registry;
 
     /**
      * Constructor.
      *
-     * @param RuleCheckerRegistryInterface $registry
+     * @param ServiceRegistryInterface $registry
      */
-    public function __construct(RuleCheckerRegistryInterface $registry)
+    public function __construct(ServiceRegistryInterface $registry)
     {
         $this->registry = $registry;
     }
@@ -45,7 +45,7 @@ class ShippingMethodEligibilityChecker implements ShippingMethodEligibilityCheck
     public function isEligible(ShippingSubjectInterface $subject, ShippingMethodInterface $method)
     {
         foreach ($method->getRules() as $rule) {
-            $checker = $this->registry->getChecker($rule->getType());
+            $checker = $this->registry->get($rule->getType());
 
             if (false === $checker->isEligible($subject, $rule->getConfiguration())) {
                 return false;

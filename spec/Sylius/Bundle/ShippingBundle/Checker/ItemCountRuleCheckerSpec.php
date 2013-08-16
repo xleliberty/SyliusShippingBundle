@@ -71,6 +71,6 @@ class ItemCountRuleCheckerSpec extends ObjectBehavior
 
     function it_uses_item_count_configuration_form_type()
     {
-        $this->getConfigurationFormType()->shouldReturn('sylius_shipping_rule_item_count_configuration');
+        $this->getConfigurationFormType()->shouldReturn('sylius_shipping_rule_item_count');
     }
 }

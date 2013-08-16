@@ -42,6 +42,6 @@ class ItemTotalRuleChecker implements RuleCheckerInterface
      */
     public function getConfigurationFormType()
     {
-        return 'sylius_shipping_rule_item_total_configuration';
+        return 'sylius_shipping_rule_item_total';
     }
 }

@@ -59,9 +59,9 @@ class FlexibleRateCalculatorSpec extends ObjectBehavior
     }
 
     /**
-     * @param Sylius\Bundle\ShippingBundle\Model\ShipmentInterface $shipment
+     * @param Sylius\Bundle\ShippingBundle\Model\ShippingSubjectInterface $subject
      */
-    function it_should_calculate_the_first_item_cost_if_shipment_has_only_one_item($shipment, $shippingItems, $method)
+    function it_should_calculate_the_first_item_cost_if_subject_has_only_one_item($subject, $shippingItems, $method)
     {
         $configuration = array(
             'first_item_cost'       => 1000,
@@ -70,15 +70,15 @@ class FlexibleRateCalculatorSpec extends ObjectBehavior
         );
 
 
-        $shipment->getShippingItemCount()->willReturn(1);
+        $subject->getShippingItemCount()->willReturn(1);
 
-        $this->calculate($shipment, $configuration)->shouldReturn(1000);
+        $this->calculate($subject, $configuration)->shouldReturn(1000);
     }
 
     /**
-     * @param Sylius\Bundle\ShippingBundle\Model\ShipmentInterface $shipment
+     * @param Sylius\Bundle\ShippingBundle\Model\ShippingSubjectInterface $subject
      */
-    function it_should_calculate_the_first_and_every_additional_item_cost_when_shipment_has_more_items($shipment, $shippingItems, $method)
+    function it_should_calculate_the_first_and_every_additional_item_cost_when_subject_has_more_items($subject, $shippingItems, $method)
     {
         $configuration = array(
             'first_item_cost'       => 1500,
@@ -87,15 +87,15 @@ class FlexibleRateCalculatorSpec extends ObjectBehavior
         );
 
 
-        $shipment->getShippingItemCount()->willReturn(5);
+        $subject->getShippingItemCount()->willReturn(5);
 
-        $this->calculate($shipment, $configuration)->shouldReturn(2700);
+        $this->calculate($subject, $configuration)->shouldReturn(2700);
     }
 
     /**
-     * @param Sylius\Bundle\ShippingBundle\Model\ShipmentInterface       $shipment
+     * @param Sylius\Bundle\ShippingBundle\Model\ShippingSubjectInterface       $subject
      */
-    function it_should_calculate_the_first_and_every_additional_item_cost_taking_limit_into_account($shipment, $shippingItems, $method)
+    function it_should_calculate_the_first_and_every_additional_item_cost_taking_limit_into_account($subject)
     {
         $configuration = array(
             'first_item_cost'       => 1500,
@@ -103,8 +103,8 @@ class FlexibleRateCalculatorSpec extends ObjectBehavior
             'additional_item_limit' => 3
         );
 
-        $shipment->getShippingItemCount()->willReturn(8);
+        $subject->getShippingItemCount()->willReturn(8);
 
-        $this->calculate($shipment, $configuration)->shouldReturn(2400);
+        $this->calculate($subject, $configuration)->shouldReturn(2400);
     }
 }

@@ -22,6 +22,13 @@ namespace Sylius\Bundle\ShippingBundle\Model;
 interface ShippingSubjectInterface
 {
     /**
+     * Get the shipping method.
+     *
+     * @return ShippingMethodInterface
+     */
+    public function getShippingMethod();
+
+    /**
      * Get the total weight of shipped goods.
      *
      * @return integer

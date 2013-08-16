@@ -247,7 +247,7 @@ class ShippingMethod implements ShippingMethodInterface
     /**
      * {@inheritdoc}
      */
-    public function hasRule(ShippingMethodRuleInterface $rule)
+    public function hasRule(ShippingRuleInterface $rule)
     {
         return $this->rules->contains($rule);
     }
@@ -255,7 +255,7 @@ class ShippingMethod implements ShippingMethodInterface
     /**
      * {@inheritdoc}
      */
-    public function addRule(ShippingMethodRuleInterface $rule)
+    public function addRule(ShippingRuleInterface $rule)
     {
         if (!$this->hasRule($rule)) {
             $rule->setMethod($this);
@@ -268,7 +268,7 @@ class ShippingMethod implements ShippingMethodInterface
     /**
      * {@inheritdoc}
      */
-    public function removeRule(ShippingMethodRuleInterface $rule)
+    public function removeRule(ShippingRuleInterface $rule)
     {
         $rule->setMethod(null);
         $this->rules->removeElement($rule);

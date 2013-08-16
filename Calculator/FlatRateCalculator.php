@@ -34,31 +34,8 @@ class FlatRateCalculator extends Calculator
     /**
      * {@inheritdoc}
      */
-    public function isConfigurable()
-    {
-        return true;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function getConfigurationFormType()
     {
-        return 'sylius_shipping_calculator_flat_rate_configuration';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setConfiguration(OptionsResolverInterface $resolver)
-    {
-        $resolver
-            ->setRequired(array(
-                'amount'
-            ))
-            ->setAllowedTypes(array(
-                'amount' => array('numeric')
-            ))
-        ;
+        return 'sylius_shipping_calculator_flat_rate';
     }
 }

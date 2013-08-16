@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Sylius\Bundle\ShippingBundle\Form\Type\Rule;
+namespace Sylius\Bundle\ShippingBundle\Form\Type\Checker;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -22,54 +22,29 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  *
  * @author Paweł Jędrzejewski <pjedrzejewski@diweb.pl>
  */
-class WeightConfigurationType extends AbstractType
+class ItemTotalConfigurationType extends AbstractType
 {
-    /**
-     * Validation groups.
-     *
-     * @var array
-     */
-    protected $validationGroups;
-
-    /**
-     * Constructor.
-     *
-     * @param array  $validationGroups
-     */
-    public function __construct(array $validationGroups)
-    {
-        $this->validationGroups = $validationGroups;
-    }
-
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('min', 'integer', array(
-                'label' => 'sylius.form.rule.weight_configuration.min',
+            ->add('min', 'money', array(
+                'required' => false,
+                'divisor'  => 100,
+                'label'    => 'sylius.form.shipping_rule.item_total.min',
                 'constraints' => array(
                     new Type(array('type' => 'numeric')),
                 )
             ))
-            ->add('max', 'integer', array(
-                'label' => 'sylius.form.rule.weight_configuration.max',
+            ->add('max', 'money', array(
+                'required' => false,
+                'divisor'  => 100,
+                'label'    => 'sylius.form.shipping_rule.item_total.max',
                 'constraints' => array(
                     new Type(array('type' => 'numeric')),
                 )
-            ))
-        ;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $resolver
-            ->setDefaults(array(
-                'validation_groups' => $this->validationGroups,
             ))
         ;
     }
@@ -79,6 +54,6 @@ class WeightConfigurationType extends AbstractType
      */
     public function getName()
     {
-        return 'sylius_shipping_rule_weight_configuration';
+        return 'sylius_shipping_rule_item_total';
     }
 }

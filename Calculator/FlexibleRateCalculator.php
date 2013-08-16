@@ -47,17 +47,9 @@ class FlexibleRateCalculator extends Calculator
     /**
      * {@inheritdoc}
      */
-    public function isConfigurable()
-    {
-        return true;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function getConfigurationFormType()
     {
-        return 'sylius_shipping_calculator_flexible_rate_configuration';
+        return 'sylius_shipping_calculator_flexible_rate';
     }
 
     /**

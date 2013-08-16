@@ -11,7 +11,7 @@
 
 namespace Sylius\Bundle\ShippingBundle\Form\EventListener;
 
-use Sylius\Bundle\ShippingBundle\Calculator\Registry\CalculatorRegistryInterface;
+use Sylius\Component\DependencyInjection\ServiceRegistryInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -29,7 +29,7 @@ class BuildShippingMethodFormListener implements EventSubscriberInterface
     /**
      * It hold registry of all calculators.
      *
-     * @var CalculatorRegistryInterface
+     * @var ServiceRegistryInterface
      */
     private $calculatorRegistry;
 
@@ -43,10 +43,10 @@ class BuildShippingMethodFormListener implements EventSubscriberInterface
     /**
      * Constructor.
      *
-     * @param CalculatorRegistryInterface $calculatorRegistry
+     * @param ServiceRegistryInterface $calculatorRegistry
      * @param FormFactoryInterface        $factory
      */
-    public function __construct(CalculatorRegistryInterface $calculatorRegistry, FormFactoryInterface $factory)
+    public function __construct(ServiceRegistryInterface $calculatorRegistry, FormFactoryInterface $factory)
     {
         $this->calculatorRegistry = $calculatorRegistry;
         $this->factory = $factory;
@@ -104,13 +104,13 @@ class BuildShippingMethodFormListener implements EventSubscriberInterface
      */
     protected function addConfigurationFields(FormInterface $form, $calculatorName, array $data = array())
     {
-        $calculator = $this->calculatorRegistry->getCalculator($calculatorName);
+        $calculator = $this->calculatorRegistry->get($calculatorName);
 
-        if (true !== $calculator->isConfigurable()) {
+        if (false === $type = $calculator->getConfigurationFormType()) {
             return;
         }
 
-        $configurationField = $this->factory->createNamed('configuration', $calculator->getConfigurationFormType(), $data, array('auto_initialize' => false));
+        $configurationField = $this->factory->createNamed('configuration', $type, $data, array('auto_initialize' => false));
 
         $form->add($configurationField);
     }

@@ -70,6 +70,6 @@ class WeightRuleCheckerSpec extends ObjectBehavior
 
     function it_uses_weight_configuration_form_type()
     {
-        $this->getConfigurationFormType()->shouldReturn('sylius_shipping_rule_weight_configuration');
+        $this->getConfigurationFormType()->shouldReturn('sylius_shipping_rule_weight');
     }
 }

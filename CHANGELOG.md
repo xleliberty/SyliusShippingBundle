@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+### v0.3.0
+
+* Use service registry from components.
+* Unify the naming.
+
 ### v0.2.0
 
 * Remove entities, use dynamic mapping on Model classes.

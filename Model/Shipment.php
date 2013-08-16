@@ -239,6 +239,11 @@ class Shipment implements ShipmentInterface, TimestampableInterface
         $this->updatedAt = $updatedAt;
     }
 
+    public function getShippingMethod()
+    {
+        return $this->method;
+    }
+
     public function getShippingWeight()
     {
         $weight = 0;
